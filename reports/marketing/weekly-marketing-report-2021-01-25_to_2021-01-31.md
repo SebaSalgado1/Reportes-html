@@ -1,43 +1,56 @@
 # Informe semanal de rendimiento de marketing
 
-Período analizado: **2021-01-25 a 2021-01-31**
+Período solicitado por la ejecución programada: 18 al 24 de mayo de 2026.
 
-Nota metodológica: Windsor devolvió el dataset histórico completo aun cuando se solicitó la semana actual. Para mantener trazabilidad, este informe usa la **última semana realmente disponible en el dataset**: 2021-01-25 a 2021-01-31.
+Período realmente disponible en Windsor y analizado para este informe: 25 al 31 de enero de 2021.
 
 ## 1. AUDITORÍA Y COMPRENSIÓN DE DATOS (Data Sanity Check)
 
-- Se recibieron las 15 columnas esperadas y no faltó ninguna columna clave para el análisis.
-- No se detectaron valores nulos ni vacíos en las columnas utilizadas para el reporte semanal.
-- Las fechas fueron interpretables en el 100% de las filas. El dataset recuperado cubre del **2021-01-01** al **2021-01-31** y la ventana semanal más reciente disponible contiene **730 filas**.
-- Los costos vinieron en formato moneda tipo `$12,345.00` y se normalizaron a valor numérico.
-- La tasa de conversión vino en formato decimal entre **0.01 y 0.15**; se interpretó como proporción, es decir, `0.08 = 8%`.
-- El ROI vino como valor numérico sin símbolo de porcentaje y se interpretó como multiplicador (`x`). Se detectaron **313** filas con ceros a la izquierda en ROI, por ejemplo `07.06`; se normalizaron sin pérdida de valor.
-- La duración vino como texto (`15 days`, `30 days`, `45 days`, `60 days`) y se transformó a días numéricos para comparar campañas cortas vs. largas.
-- Filas procesadas correctamente para el informe semanal: **730 de 730**. No fue necesario excluir filas del período semanal por problemas de parseo.
+- Se recuperaron 3,432 filas desde Windsor y se procesaron correctamente 730 filas correspondientes a la última semana completa disponible en la fuente: 2021-01-25 a 2021-01-31.
+- No se detectaron valores nulos ni vacíos en las columnas clave analizadas: `campaign_type`, `target_audience`, `duration`, `channel_used`, `conversion_rate`, `acquisition_cost`, `roi`, `location`, `clicks`, `impressions`, `engagement_score`, `customer_segment` y `date`.
+- No hubo fallas de parseo en fechas, costos, tasas, impresiones, clics, engagement ni duración.
+- La convención usada para tasas es decimal: por ejemplo, `0.08 = 8%`.
+- Se detectaron formatos heterogéneos pero consistentes y utilizables:
+  - `acquisition_cost` viene como moneda en texto, por ejemplo `$13,766.00`.
+  - `duration` viene como texto, por ejemplo `15 days`, `30 days`, `45 days`, `60 days`.
+  - `roi`, `conversion_rate`, `clicks`, `impressions` y `engagement_score` llegan como texto aunque representan métricas numéricas.
+- No existe una columna de ID de campaña en el dataset, por lo que no fue posible auditar consistencia de IDs.
+- No fue necesario excluir filas dentro de la semana analizada.
+- Limitación crítica: Windsor no entregó datos para la semana cerrada más reciente del calendario actual, sino solo datos entre 2021-01-01 y 2021-01-31. Por eso este reporte semanal usa la última semana completa realmente disponible en la fuente.
 
 ## 2. DASHBOARD DE MÉTRICAS GLOBALES (Cálculos de BI)
 
-| Métrica | Resultado semanal |
-|---|---:|
+| Métrica | Resultado |
+| --- | ---: |
 | Volumen Total de Impresiones | 4,009,730 |
-| ROI Promedio de toda la operación | 5.00x |
+| ROI Promedio de toda la operación | 5.00 |
 | Costo de Adquisición Promedio | $12,408.20 |
 | Tasa de Conversión Promedio | 8.00% |
 
-Aclaración: el ROI se reporta como multiplicador promedio y la tasa de conversión como porcentaje derivado del valor decimal original del dataset.
+Notas de cálculo:
+
+- El ROI promedio se calculó sobre las 730 filas semanales válidas.
+- La tasa de conversión promedio se reporta como porcentaje luego de interpretar `conversion_rate` en formato decimal.
 
 ## 3. ANÁLISIS CRUZADO DE EFICIENCIA (Insights de Negocio)
 
-**Conclusión ejecutiva:** en la última semana disponible, **Google Ads** fue el canal más sólido en retorno total, mientras que **Website** fue el más balanceado en eficiencia de conversión y costo. La mejor combinación específica con evidencia repetida fue **Email + Men 25-34 + Display**.
-
-- **Mejor combinación Channel_Used + Target_Audience + Campaign_Type:** `Email + Men 25-34 + Display` con **3 campañas**, **ROI promedio de 7.51x**, **conversión promedio de 8.67%** y **costo promedio de adquisición de $16,151.00**. Se considera la mejor combinación específica porque lidera en ROI entre las combinaciones con al menos 3 observaciones, evitando basarse en un caso aislado.
-- **Respuesta a campañas largas vs. cortas por Customer_Segment:** `Tech Enthusiasts` reaccionó mejor a campañas largas, con ROI de **4.84x** vs. **4.61x** en campañas cortas y conversión de **8.43%** vs. **7.39%**. En cambio, `Outdoor Adventurers` rindió mejor con campañas cortas, con ROI de **5.23x** vs. **5.14x** y conversión de **8.12%** vs. **7.24%**.
-- **Respuesta a campañas largas vs. cortas por Location:** `Chicago` respondió mejor a campañas largas por ROI, con **5.02x** frente a **4.76x** en campañas cortas. `New York` respondió mejor a campañas cortas, con **5.05x** frente a **4.93x** y una conversión de **8.52%** frente a **7.51%**.
-- **Relación entre Engagement_Score y ROI:** el coeficiente de correlación de Pearson fue **0.015**, por lo que no muestra una correlación visible relevante. En este dataset semanal, un engagement alto no garantiza un ROI alto.
-- **Conclusión explícita sobre el mejor canal:** `Google Ads` fue el mejor canal por retorno promedio, con **ROI de 5.32x** en **124 campañas** y **726,555 impresiones**. `Website` quedó muy cerca en ROI (**5.12x**), pero con mejor conversión (**8.40%**) y costo más bajo (**$12,246.67**), así que es el canal alternativo más eficiente para escalar. `YouTube` fue el canal más débil en ROI promedio (**4.78x**), aunque no en conversión.
+- La combinación con mayor ROI puntual fue `Email + Men 25-34 + Display`, con ROI promedio de 7.51, pero sobre solo 3 registros y con costo de adquisición promedio alto de $16,151.
+- Si se prioriza retorno con mejor eficiencia operativa y un mínimo de mayor estabilidad muestral, la mejor combinación observada fue `Google Ads + Women 25-34 + Influencer`: 4 registros, ROI promedio de 7.24, costo de adquisición promedio de $7,339 y tasa de conversión promedio de 10.75%. En la práctica, esta combinación ofrece una relación más sólida entre rentabilidad, costo y conversión que el máximo ROI puntual.
+- En duración de campañas, la señal más clara por segmento favorece campañas largas:
+  - `Tech Enthusiasts`: ROI promedio de 4.84 en campañas largas vs 4.61 en cortas.
+  - `Fashionistas`: ROI promedio de 5.19 en campañas largas vs 4.97 en cortas.
+- La principal excepción por segmento fue `Outdoor Adventurers`, donde las campañas cortas rindieron mejor: ROI promedio de 5.23 en cortas vs 5.14 en largas.
+- Por ubicación, las campañas largas reaccionaron mejor en:
+  - `Chicago`: ROI promedio de 5.02 en largas vs 4.76 en cortas.
+  - `Los Angeles`: ROI promedio de 5.05 en largas vs 4.84 en cortas.
+  - `Miami`: ROI promedio de 5.24 en largas vs 5.09 en cortas.
+- La ubicación con preferencia más visible por campañas cortas fue `New York`: ROI promedio de 5.05 en cortas vs 4.93 en largas.
+- No existe una correlación visible entre `Engagement_Score` y `ROI`. La correlación de Pearson observada fue 0.015, esencialmente nula para fines ejecutivos. Eso indica que un mayor engagement en este dataset no está anticipando mejor rentabilidad.
+- La conclusión explícita sobre el mejor canal es `Google Ads`. Fue el canal con mejor ROI promedio semanal (5.32), con costo de adquisición promedio ligeramente por debajo del promedio global ($12,308.74 vs $12,408.20) y mejor desempeño agregado que Facebook, Email, Instagram y YouTube. `Website` quedó segundo en ROI (5.12) y mostró una conversión media ligeramente superior, pero no superó a Google Ads en retorno total de eficiencia.
+- El canal más débil en retorno agregado fue `YouTube`, con ROI promedio de 4.78. Además, varias de sus combinaciones aparecen entre las de menor rendimiento de la semana, por ejemplo `YouTube + Men 18-24 + Display` con ROI promedio de 3.70 y `YouTube + Women 35-44 + Influencer` con ROI promedio de 3.90.
 
 ## 4. PLAN DE ACCIÓN RECOMENDADO (Decisiones de Negocio)
 
-1. **Reasignar presupuesto incremental hacia Google Ads y Website, con foco en audiencias de rendimiento probado.** Mueve parte del presupuesto de canales con menor retorno hacia `Google Ads` y `Website`, priorizando campañas para `Men 25-34`, `Tech Enthusiasts` y geografías como `Chicago` y `Los Angeles`, porque Google Ads lideró el ROI semanal (**5.32x**) y Website combinó un ROI alto con mejor conversión y costo controlado.
-2. **Escalar el patrón ganador `Email + Men 25-34 + Display` como célula táctica del próximo mes.** Replica esa combinación en nuevas variantes creativas y de oferta, financiándola con reducción parcial en `YouTube` y en campañas de `Facebook` de bajo retorno relativo. La base es concreta: esa combinación sostuvo **3 observaciones**, con **ROI de 7.51x** y **8.67%** de conversión, muy por encima del promedio semanal.
-3. **Separar la estrategia de duración por segmento y ubicación en lugar de usar una sola cadencia para todos.** Mantén campañas largas para `Tech Enthusiasts` y mercados como `Chicago`, donde mejoró el ROI, y reduce campañas largas en `Outdoor Adventurers` y `New York`, donde las campañas cortas respondieron mejor. La reasignación debe salir de formatos largos menos eficientes y moverse a secuencias cortas en esos segmentos y ubicaciones, porque el dataset muestra diferencias observables de rendimiento por duración.
+1. Reasignar presupuesto incremental hacia `Google Ads`, en especial en la combinación `Women 25-34 + Influencer`, y sostener apoyo secundario en `Website` para captura y conversión. La razón es directa: Google Ads fue el mejor canal agregado de la semana (ROI 5.32) y esa combinación específica logró ROI 7.24 con un costo de adquisición muy eficiente de $7,339. La fuente de presupuesto debería salir primero de `YouTube`, que cerró como el canal con menor ROI promedio (4.78).
+2. Extender campañas de más de 30 días para `Fashionistas`, `Tech Enthusiasts`, `Chicago`, `Los Angeles` y `Miami`, y reducir el peso de duraciones largas en `Outdoor Adventurers` y `New York`. La observación concreta es que las campañas largas dieron una mejora visible de ROI en esos segmentos y ubicaciones, mientras que en `Outdoor Adventurers` y `New York` la respuesta fue mejor en campañas cortas.
+3. Reducir decisiones de inversión basadas en `Engagement_Score` y mover ese criterio hacia ROI, conversión y costo de adquisición por combinación. Como la correlación `Engagement_Score`-`ROI` fue prácticamente nula (0.015), conviene pausar o moderar combinaciones que sostienen engagement sin retorno superior, como varias ejecuciones de `YouTube` y `Instagram + Men 25-34 + Search` (ROI 3.46 con 10 registros), y redirigir ese presupuesto a combinaciones de `Google Ads` y `Website` que sí mostraron eficiencia económica real.
