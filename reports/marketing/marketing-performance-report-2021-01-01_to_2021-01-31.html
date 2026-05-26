@@ -1,0 +1,133 @@
+<!DOCTYPE html>
+<html lang='es'>
+<head>
+  <meta charset='utf-8' />
+  <meta name='viewport' content='width=device-width, initial-scale=1' />
+  <title>Informe de rendimiento de marketing | 2021-01-01_to_2021-01-31</title>
+  <style>
+    :root {
+      --bg: #f4efe7;
+      --paper: #fffdf9;
+      --ink: #1d2a32;
+      --muted: #5f6b73;
+      --line: #d9ccbd;
+      --accent: #0f766e;
+      --accent-2: #b45309;
+      --good: #166534;
+      --warn: #92400e;
+    }
+    * { box-sizing: border-box; }
+    body { margin: 0; font-family: Georgia, 'Times New Roman', serif; background: linear-gradient(180deg, #efe4d3 0%, var(--bg) 32%, #f7f2eb 100%); color: var(--ink); }
+    .wrap { max-width: 1120px; margin: 0 auto; padding: 40px 20px 64px; }
+    header { background: var(--paper); border: 1px solid var(--line); padding: 28px; }
+    h1, h2, h3 { margin: 0 0 12px; line-height: 1.1; }
+    h1 { font-size: 2.3rem; }
+    h2 { font-size: 1.5rem; color: var(--accent); border-top: 3px solid var(--accent); padding-top: 18px; margin-top: 32px; }
+    h3 { font-size: 1.05rem; color: var(--accent-2); margin-top: 24px; }
+    p, li { font-size: 1rem; line-height: 1.6; color: var(--ink); }
+    .lead { font-size: 1.1rem; color: var(--muted); max-width: 80ch; }
+    .meta { display: grid; grid-template-columns: repeat(auto-fit, minmax(220px, 1fr)); gap: 12px; margin-top: 18px; }
+    .meta div { border-left: 3px solid var(--accent); padding-left: 12px; }
+    .panel { background: var(--paper); border: 1px solid var(--line); padding: 24px; margin-top: 18px; }
+    table { width: 100%; border-collapse: collapse; margin-top: 12px; background: #fff; }
+    th, td { text-align: left; padding: 12px 10px; border-bottom: 1px solid #e8ddd1; vertical-align: top; }
+    th { color: var(--accent); font-size: 0.92rem; letter-spacing: 0.02em; text-transform: uppercase; }
+    .note { color: var(--muted); font-size: 0.95rem; }
+    .kpi-grid { display: grid; grid-template-columns: repeat(auto-fit, minmax(220px, 1fr)); gap: 14px; margin-top: 18px; }
+    .kpi { background: #fffcf6; border: 1px solid var(--line); padding: 16px; }
+    .kpi .label { font-size: 0.9rem; color: var(--muted); text-transform: uppercase; letter-spacing: 0.05em; }
+    .kpi .value { font-size: 1.7rem; margin-top: 8px; color: var(--accent); }
+    ul { padding-left: 20px; }
+    .good { color: var(--good); }
+    .warn { color: var(--warn); }
+    code { background: #f2ece4; padding: 2px 5px; border-radius: 4px; }
+    @media (max-width: 640px) {
+      h1 { font-size: 1.8rem; }
+      .wrap { padding: 22px 14px 40px; }
+      header, .panel { padding: 18px; }
+      th, td { padding: 10px 8px; font-size: 0.94rem; }
+    }
+  </style>
+</head>
+<body>
+  <div class='wrap'>
+    <header>
+      <h1>Informe Ejecutivo de Rendimiento de Marketing</h1>
+      <p class='lead'>Conclusión ejecutiva: <strong>Website</strong> fue el canal más sólido del dataset completo recuperado desde Windsor porque lideró el ROI promedio (5.11) y además mostró el menor costo de adquisición promedio ($12,283.41). La combinación más eficiente con base robusta de al menos 20 registros fue <strong>Instagram + Women 25-34 + Search</strong>, mientras que la relación entre <strong>Engagement_Score</strong> y <strong>ROI</strong> fue prácticamente nula (correlación 0.011).</p>
+      <div class='meta'>
+        <div><strong>Fuente analizada</strong><br/>Windsor.ai / Google Sheets conectado</div>
+        <div><strong>Filas procesadas</strong><br/>3432 de 3432</div>
+        <div><strong>Período real disponible</strong><br/>2021-01-01 a 2021-01-31</div>
+        <div><strong>Convención clave</strong><br/><code>Conversion_Rate</code> leído como decimal: 0.081 = 8.10%</div>
+      </div>
+    </header>
+
+    <section class='panel'>
+      <h2>1. AUDITORÍA Y COMPRENSIÓN DE DATOS (Data Sanity Check)</h2>
+      <ul>
+        <li>Se recuperaron <strong>3432</strong> filas desde Windsor y se procesaron correctamente <strong>3432</strong>; no hubo exclusiones por nulos ni por fallas de parseo en los campos críticos.</li>
+        <li>No se detectaron valores nulos o vacíos en las 22 columnas analizadas. Tampoco se observaron filas duplicadas exactas.</li>
+        <li>La anomalía relevante fue de formato en <code>ROI</code>: <strong>313</strong> filas venían con cero a la izquierda, por ejemplo <code>07.06</code>. Se normalizaron a valor numérico sin pérdida para los cálculos.</li>
+        <li><code>Acquisition_Cost</code> llegó en formato monetario de texto y <code>Duration</code> en texto tipo <code>15 days</code>; ambos se estandarizaron a numérico. Las duraciones observadas fueron solo 15, 30, 45 y 60 días.</li>
+        <li>Windsor no devolvió datos de 2026: el período realmente disponible en esta ejecución fue <strong>2021-01-01 a 2021-01-31</strong>. El informe se basa exclusivamente en ese rango recuperado.</li>
+      </ul>
+      <p class='note'>No se requirió limpieza destructiva. La única normalización aplicada fue de tipo/formato para tasas, montos, duraciones y ROI.</p>
+    </section>
+
+    <section class='panel'>
+      <h2>2. DASHBOARD DE MÉTRICAS GLOBALES (Cálculos de BI)</h2>
+      <div class='kpi-grid'>
+        <div class='kpi'><div class='label'>Impresiones Totales</div><div class='value'>18.949.849</div></div>
+        <div class='kpi'><div class='label'>ROI Promedio</div><div class='value'>5.02</div></div>
+        <div class='kpi'><div class='label'>CAC Promedio</div><div class='value'>$12,539.05</div></div>
+        <div class='kpi'><div class='label'>Conversión Promedio</div><div class='value'>8.10%</div></div>
+      </div>
+      
+<table>
+  <thead>
+    <tr><th>Métrica</th><th>Valor</th><th>Lectura</th></tr>
+  </thead>
+  <tbody>
+    <tr><td>Volumen Total de Impresiones</td><td>18.949.849</td><td>Universo completo procesado en Windsor.</td></tr>
+    <tr><td>ROI Promedio de toda la operación</td><td>5.02</td><td>Promedio simple de la columna <code>ROI</code> ya normalizada.</td></tr>
+    <tr><td>Costo de Adquisición Promedio</td><td>$12,539.05</td><td>Promedio simple de <code>Acquisition_Cost</code>.</td></tr>
+    <tr><td>Tasa de Conversión Promedio</td><td>8.10%</td><td>Se interpretó <code>Conversion_Rate</code> como proporción decimal, no como porcentaje entero.</td></tr>
+  </tbody>
+</table>
+
+      <p class='note'>Todas las métricas pudieron calcularse de forma fiable. La tasa de conversión se presenta en porcentaje para lectura ejecutiva, pero el dataset vino en escala decimal.</p>
+    </section>
+
+    <section class='panel'>
+      <h2>3. ANÁLISIS CRUZADO DE EFICIENCIA (Insights de Negocio)</h2>
+      <h3>Mejor combinación de retorno y eficiencia</h3>
+      <p>Usando solo combinaciones con <strong>20 o más registros</strong> para evitar conclusiones frágiles, la mejor combinación fue <strong>Instagram + Women 25-34 + Search</strong>. Entregó un ROI promedio de <strong>5.50</strong>, una tasa de conversión de <strong>10.73%</strong> y un costo de adquisición promedio de <strong>$11,541.82</strong> en <strong>22</strong> observaciones.</p>
+
+      <h3>Respuesta a campañas cortas vs. largas</h3>
+      <p>Se clasificó la duración como <strong>corta</strong> para campañas de 15 a 30 días y <strong>larga</strong> para campañas de 45 a 60 días, porque esas fueron las únicas duraciones presentes. En segmentos, <strong>Foodies</strong> reaccionó mejor a campañas cortas con ROI de <strong>5.21</strong> y conversión de <strong>8.25%</strong> sobre <strong>343</strong> registros; para campañas largas, destacó <strong>Fashionistas</strong> con ROI de <strong>5.10</strong> y costo medio de <strong>$12,306.44</strong> sobre <strong>352</strong> registros.</p>
+      <p>Por ubicación, <strong>Houston</strong> fue la plaza más receptiva a campañas cortas con ROI de <strong>5.16</strong> y conversión de <strong>8.67%</strong>, mientras que <strong>Miami</strong> lideró campañas largas con ROI de <strong>5.15</strong> en <strong>351</strong> observaciones.</p>
+
+      <h3>Engagement vs. ROI</h3>
+      <p>La correlación lineal entre <code>Engagement_Score</code> y <code>ROI</code> fue de <strong>0.011</strong>, lo que indica que <strong>no existe una relación visible y estable</strong> entre ambas métricas en este dataset. Aunque los scores 8 y 9 muestran ROI medio algo mayor (5.09 frente a 5.01 para scores 1 a 3), el patrón no es monotónico y no justifica optimizar presupuesto solo por engagement.</p>
+
+      <h3>Conclusión explícita sobre el mejor canal</h3>
+      <p><strong>Website</strong> fue el mejor canal del dataset completo. La evidencia observable es que terminó primero en ROI promedio (5.11) y, al mismo tiempo, presentó el menor costo de adquisición promedio ($12,283.41) entre los seis canales analizados. La tabla siguiente resume el ranking:</p>
+      <table>
+        <thead>
+          <tr><th>Canal</th><th>Filas</th><th>ROI Promedio</th><th>Conversión Promedio</th><th>CAC Promedio</th></tr>
+        </thead>
+        <tbody><tr><td>Website</td><td>624</td><td>5.11</td><td>7.98%</td><td>$12,283.41</td></tr><tr><td>Facebook</td><td>565</td><td>5.07</td><td>8.06%</td><td>$12,488.61</td></tr><tr><td>Google Ads</td><td>560</td><td>5.06</td><td>8.18%</td><td>$12,606.14</td></tr><tr><td>Instagram</td><td>564</td><td>5.02</td><td>7.92%</td><td>$12,734.59</td></tr><tr><td>Email</td><td>557</td><td>4.97</td><td>8.04%</td><td>$12,824.75</td></tr><tr><td>YouTube</td><td>562</td><td>4.88</td><td>8.45%</td><td>$12,327.38</td></tr></tbody>
+      </table>
+    </section>
+
+    <section class='panel'>
+      <h2>4. PLAN DE ACCIÓN RECOMENDADO (Decisiones de Negocio)</h2>
+      <ol>
+        <li><strong>Priorizar Website y Search para audiencias de intención alta.</strong> Reasignar una parte del presupuesto incremental del próximo mes hacia <strong>Website</strong>, especialmente en campañas <strong>Search</strong> dirigidas a <strong>Women 25-34</strong> y <strong>Men 25-34</strong>. La razón es directa: Website fue el mejor canal global y la combinación Instagram + Women 25-34 + Search lideró la eficiencia con base robusta.</li>
+        <li><strong>Diferenciar la duración por segmento y plaza, no por una regla única.</strong> Mantener campañas <strong>cortas</strong> para <strong>Foodies</strong> y para <strong>Houston</strong>, donde el ROI y la conversión responden mejor en 15-30 días. En paralelo, sostener campañas <strong>largas</strong> para <strong>Fashionistas</strong> y <strong>Miami</strong>, donde 45-60 días mostraron mejor retorno. Esta recomendación implica mover presupuesto entre configuraciones de duración, no necesariamente entre canales.</li>
+        <li><strong>Reducir decisiones guiadas solo por engagement y vigilar canales con peor equilibrio económico.</strong> Como la correlación entre engagement y ROI fue casi nula, conviene pausar cualquier optimización que premie engagement alto sin retorno probado. Si se necesita liberar presupuesto, la primera revisión debe centrarse en los canales con menor ROI promedio y mayor CAC relativo, empezando por <strong>YouTube</strong>, y redirigir esos fondos hacia Website y hacia combinaciones Search con mejor conversión. La evidencia no alcanza para recomendar una pausa total de un segmento específico, pero sí para reducir prioridad de configuraciones menos rentables.</li>
+      </ol>
+    </section>
+  </div>
+</body>
+</html>
