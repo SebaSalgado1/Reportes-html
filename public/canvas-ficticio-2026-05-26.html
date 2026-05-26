@@ -1,0 +1,146 @@
+<!doctype html>
+<html lang="es">
+<head>
+  <meta charset="utf-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1">
+  <title>Canvas Ficticio</title>
+  <style>
+    :root {
+      color-scheme: light;
+      --bg: #f4efe7;
+      --panel: #fffaf3;
+      --ink: #1f2937;
+      --muted: #6b7280;
+      --grid: #d6d3d1;
+      --bar: #1d4ed8;
+      --accent: #f59e0b;
+    }
+
+    * { box-sizing: border-box; }
+    body {
+      margin: 0;
+      font-family: Georgia, "Times New Roman", serif;
+      background: linear-gradient(180deg, var(--bg), #efe7db);
+      color: var(--ink);
+    }
+
+    main {
+      max-width: 960px;
+      margin: 32px auto;
+      padding: 24px;
+    }
+
+    .panel {
+      background: var(--panel);
+      border: 1px solid #e7dccb;
+      padding: 24px;
+      box-shadow: 0 18px 40px rgba(120, 98, 61, 0.08);
+    }
+
+    h1 {
+      margin: 0 0 8px;
+      font-size: 32px;
+      font-weight: 600;
+    }
+
+    p {
+      margin: 0 0 18px;
+      color: var(--muted);
+      line-height: 1.5;
+    }
+
+    canvas {
+      display: block;
+      width: 100%;
+      height: auto;
+      border: 1px solid #e7dccb;
+      background: #fff;
+    }
+  </style>
+</head>
+<body>
+  <main>
+    <section class="panel">
+      <h1>Canvas con datos ficticios</h1>
+      <p>Ejemplo almacenado en la memoria compartida del agente. Muestra ventas simuladas por mes.</p>
+      <canvas id="chart" width="880" height="460" aria-label="Grafico de barras con datos ficticios"></canvas>
+    </section>
+  </main>
+
+  <script>
+    const data = [
+      { label: "Ene", value: 18 },
+      { label: "Feb", value: 25 },
+      { label: "Mar", value: 21 },
+      { label: "Abr", value: 31 },
+      { label: "May", value: 28 },
+      { label: "Jun", value: 36 }
+    ];
+
+    const canvas = document.getElementById("chart");
+    const ctx = canvas.getContext("2d");
+
+    const w = canvas.width;
+    const h = canvas.height;
+    const margin = { top: 40, right: 30, bottom: 60, left: 60 };
+    const plotW = w - margin.left - margin.right;
+    const plotH = h - margin.top - margin.bottom;
+    const maxValue = Math.max(...data.map((item) => item.value));
+
+    ctx.clearRect(0, 0, w, h);
+
+    ctx.fillStyle = "#ffffff";
+    ctx.fillRect(0, 0, w, h);
+
+    ctx.strokeStyle = "#d6d3d1";
+    ctx.lineWidth = 1;
+    for (let i = 0; i <= 4; i += 1) {
+      const y = margin.top + (plotH / 4) * i;
+      ctx.beginPath();
+      ctx.moveTo(margin.left, y);
+      ctx.lineTo(w - margin.right, y);
+      ctx.stroke();
+    }
+
+    ctx.strokeStyle = "#1f2937";
+    ctx.lineWidth = 1.5;
+    ctx.beginPath();
+    ctx.moveTo(margin.left, margin.top);
+    ctx.lineTo(margin.left, h - margin.bottom);
+    ctx.lineTo(w - margin.right, h - margin.bottom);
+    ctx.stroke();
+
+    const barWidth = plotW / data.length * 0.58;
+    const gap = plotW / data.length * 0.42;
+
+    ctx.font = "16px Georgia";
+    ctx.textAlign = "center";
+
+    data.forEach((item, index) => {
+      const x = margin.left + gap / 2 + index * (barWidth + gap);
+      const barH = (item.value / maxValue) * (plotH - 10);
+      const y = h - margin.bottom - barH;
+
+      ctx.fillStyle = "#1d4ed8";
+      ctx.fillRect(x, y, barWidth, barH);
+
+      ctx.fillStyle = "#1f2937";
+      ctx.fillText(String(item.value), x + barWidth / 2, y - 10);
+
+      ctx.fillStyle = "#6b7280";
+      ctx.fillText(item.label, x + barWidth / 2, h - margin.bottom + 24);
+    });
+
+    ctx.fillStyle = "#1f2937";
+    ctx.font = "bold 18px Georgia";
+    ctx.textAlign = "left";
+    ctx.fillText("Ventas simuladas", margin.left, 24);
+
+    ctx.fillStyle = "#f59e0b";
+    ctx.fillRect(w - 188, 18, 14, 14);
+    ctx.fillStyle = "#6b7280";
+    ctx.font = "14px Georgia";
+    ctx.fillText("Datos ficticios de ejemplo", w - 168, 30);
+  </script>
+</body>
+</html>
