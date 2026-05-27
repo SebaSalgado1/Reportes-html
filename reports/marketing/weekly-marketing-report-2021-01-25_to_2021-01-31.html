@@ -1,0 +1,548 @@
+<!DOCTYPE html>
+<html lang="es">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Reporte Semanal de Marketing | 2021-01-25 a 2021-01-31</title>
+  <style>
+    :root {
+      --itau-orange: #FF6101;
+      --itau-orange-soft: #F26B43;
+      --itau-text: #000000;
+      --itau-text-muted: #252220;
+      --itau-gray: #A4A3A4;
+      --itau-bg: #FFFFFF;
+      --itau-panel: #F7F4F2;
+      --itau-border: #E7E1DC;
+      --itau-warning: #FFF1E8;
+      --itau-shadow: 0 10px 28px rgba(0, 0, 0, 0.06);
+    }
+
+    * { box-sizing: border-box; }
+    body {
+      margin: 0;
+      background: linear-gradient(180deg, #fff 0%, #fcfaf8 100%);
+      color: var(--itau-text);
+      font-family: "Itau Display Pro", "Itau Display Pro Regular", "Helvetica Neue", Arial, sans-serif;
+    }
+
+    .report-shell {
+      max-width: 1280px;
+      margin: 0 auto;
+      padding: 32px 24px 56px;
+    }
+
+    .hero,
+    .section-card,
+    .kpi-card,
+    .recommendation-card,
+    .insight-card {
+      background: #fff;
+      border: 1px solid var(--itau-border);
+      border-radius: 20px;
+      box-shadow: var(--itau-shadow);
+    }
+
+    .hero {
+      padding: 28px;
+      border-top: 6px solid var(--itau-orange);
+      display: grid;
+      gap: 18px;
+    }
+
+    .eyebrow {
+      color: var(--itau-orange);
+      font-size: 12px;
+      font-weight: 700;
+      letter-spacing: 0.08em;
+      text-transform: uppercase;
+    }
+
+    h1 {
+      margin: 0;
+      font-size: 38px;
+      line-height: 1.05;
+    }
+
+    .hero-subtitle {
+      margin: 0;
+      max-width: 900px;
+      font-size: 16px;
+      line-height: 1.55;
+      color: var(--itau-text-muted);
+    }
+
+    .meta-row,
+    .badge-row {
+      display: flex;
+      flex-wrap: wrap;
+      gap: 10px;
+    }
+
+    .chip {
+      padding: 8px 12px;
+      border-radius: 999px;
+      border: 1px solid var(--itau-border);
+      background: var(--itau-panel);
+      font-size: 12px;
+      font-weight: 700;
+      color: var(--itau-text-muted);
+    }
+
+    .chip.accent {
+      background: rgba(255, 97, 1, 0.1);
+      border-color: rgba(255, 97, 1, 0.18);
+      color: var(--itau-orange);
+    }
+
+    .warning-banner {
+      padding: 16px 18px;
+      border-radius: 16px;
+      background: var(--itau-warning);
+      border: 1px solid rgba(255, 97, 1, 0.18);
+      color: var(--itau-text);
+      font-size: 14px;
+      line-height: 1.55;
+    }
+
+    .section-card {
+      margin-top: 24px;
+      padding: 24px;
+    }
+
+    .section-head {
+      display: flex;
+      justify-content: space-between;
+      gap: 16px;
+      align-items: flex-start;
+      margin-bottom: 18px;
+    }
+
+    .section-title {
+      margin: 0;
+      font-size: 24px;
+      line-height: 1.15;
+    }
+
+    .section-intro {
+      margin: 6px 0 0;
+      color: var(--itau-text-muted);
+      font-size: 15px;
+      line-height: 1.5;
+      max-width: 900px;
+    }
+
+    .kpi-grid,
+    .insight-grid,
+    .recommendation-grid,
+    .audit-grid {
+      display: grid;
+      gap: 16px;
+    }
+
+    .kpi-grid {
+      grid-template-columns: repeat(4, minmax(0, 1fr));
+    }
+
+    .audit-grid,
+    .insight-grid {
+      grid-template-columns: repeat(2, minmax(0, 1fr));
+    }
+
+    .recommendation-grid {
+      grid-template-columns: repeat(3, minmax(0, 1fr));
+    }
+
+    .kpi-card,
+    .insight-card,
+    .recommendation-card {
+      padding: 20px;
+    }
+
+    .label {
+      color: var(--itau-gray);
+      font-size: 12px;
+      font-weight: 700;
+      letter-spacing: 0.05em;
+      text-transform: uppercase;
+    }
+
+    .kpi-value {
+      margin: 10px 0 8px;
+      font-size: 30px;
+      font-weight: 800;
+      line-height: 1;
+    }
+
+    .kpi-note,
+    .insight-copy,
+    .recommendation-copy,
+    .audit-copy,
+    .table-note {
+      color: var(--itau-text-muted);
+      font-size: 14px;
+      line-height: 1.55;
+    }
+
+    .accent-bar {
+      width: 48px;
+      height: 4px;
+      border-radius: 999px;
+      background: var(--itau-orange);
+      margin: 12px 0 0;
+    }
+
+    table {
+      width: 100%;
+      border-collapse: collapse;
+      margin-top: 18px;
+      overflow: hidden;
+      border-radius: 16px;
+      background: #fff;
+      border: 1px solid var(--itau-border);
+    }
+
+    thead th {
+      text-align: left;
+      background: var(--itau-panel);
+      color: var(--itau-text);
+      font-size: 13px;
+      padding: 14px 16px;
+    }
+
+    tbody td {
+      padding: 14px 16px;
+      border-top: 1px solid var(--itau-border);
+      font-size: 14px;
+      color: var(--itau-text-muted);
+      vertical-align: top;
+    }
+
+    .status-strong {
+      color: var(--itau-text);
+      font-weight: 700;
+    }
+
+    .recommendation-index {
+      width: 34px;
+      height: 34px;
+      border-radius: 50%;
+      background: rgba(255, 97, 1, 0.12);
+      color: var(--itau-orange);
+      display: inline-flex;
+      align-items: center;
+      justify-content: center;
+      font-weight: 800;
+      margin-bottom: 12px;
+    }
+
+    .footer-note {
+      margin-top: 22px;
+      color: var(--itau-gray);
+      font-size: 12px;
+      line-height: 1.5;
+    }
+
+    @media (max-width: 980px) {
+      .kpi-grid,
+      .audit-grid,
+      .insight-grid,
+      .recommendation-grid {
+        grid-template-columns: 1fr 1fr;
+      }
+      h1 { font-size: 32px; }
+    }
+
+    @media (max-width: 640px) {
+      .report-shell { padding: 20px 14px 42px; }
+      .kpi-grid,
+      .audit-grid,
+      .insight-grid,
+      .recommendation-grid {
+        grid-template-columns: 1fr;
+      }
+      .hero, .section-card { padding: 20px; }
+      h1 { font-size: 28px; }
+    }
+  </style>
+</head>
+<body>
+  <div class="report-shell">
+    <header class="hero">
+      <div>
+        <div class="eyebrow">Reporte Semanal de Marketing</div>
+        <h1>Semana analizada: 2021-01-25 a 2021-01-31</h1>
+      </div>
+      <p class="hero-subtitle">
+        Windsor confirma que la última semana completa realmente disponible dentro del dataset recuperado termina el 31 de enero de 2021.
+        En esta ejecución, el conector de Google Sheets volvió a exponer el mes completo y no respetó el recorte temporal exacto,
+        por lo que este informe prioriza trazabilidad y honestidad metodológica sobre precisión aparente.
+      </p>
+      <div class="meta-row">
+        <span class="chip accent">Fuente primaria: Windsor ai / Google Sheets</span>
+        <span class="chip">Cobertura recuperada: 2021-01-01 a 2021-01-31</span>
+        <span class="chip">Última semana completa verificable: 2021-01-25 a 2021-01-31</span>
+      </div>
+      <div class="warning-banner">
+        <strong>Resumen ejecutivo:</strong> el período objetivo quedó identificado correctamente, pero Windsor no permitió aislarlo en un extracto semanal limpio.
+        Por eso, los KPIs globales semanales y los rankings finales de eficiencia quedan marcados como no recalculables con fiabilidad en esta ejecución.
+        Aun así, el archivo deja trazadas las anomalías del dataset, el alcance real recuperado y un plan accionable para no tomar decisiones débiles.
+      </div>
+    </header>
+
+    <section class="section-card">
+      <div class="section-head">
+        <div>
+          <h2 class="section-title">1. AUDITORÍA Y COMPRENSIÓN DE DATOS</h2>
+          <p class="section-intro">La prioridad en este corte fue validar período, estructura y riesgos de calidad antes de forzar métricas no sustentadas.</p>
+        </div>
+      </div>
+      <div class="audit-grid">
+        <div class="insight-card">
+          <div class="label">Período y trazabilidad</div>
+          <div class="accent-bar"></div>
+          <p class="audit-copy">
+            El dataset recuperado en Windsor llega hasta <span class="status-strong">2021-01-31</span>, por lo que la última semana completa realmente disponible es
+            <span class="status-strong">2021-01-25 a 2021-01-31</span>. El conector devolvió nuevamente la cobertura mensual completa en lugar de un extracto semanal aislado.
+          </p>
+        </div>
+        <div class="insight-card">
+          <div class="label">Nulos y vacíos observables</div>
+          <div class="accent-bar"></div>
+          <p class="audit-copy">
+            En la muestra visible no se observaron celdas vacías en campos clave como <span class="status-strong">date</span>, <span class="status-strong">channel_used</span>,
+            <span class="status-strong">campaign_type</span>, <span class="status-strong">conversion_rate</span>, <span class="status-strong">acquisition_cost</span> y <span class="status-strong">roi</span>.
+            Aun así, no fue posible certificar el conteo exacto de nulos de la semana objetivo sin un recorte semanal limpio.
+          </p>
+        </div>
+        <div class="insight-card">
+          <div class="label">Formatos inconsistentes</div>
+          <div class="accent-bar"></div>
+          <p class="audit-copy">
+            Se repiten tres normalizaciones necesarias: <span class="status-strong">ROI</span> con ceros a la izquierda como <span class="status-strong">07.06</span>,
+            <span class="status-strong">Acquisition_Cost</span> en texto monetario con símbolo y separadores, y <span class="status-strong">Duration</span> en texto como
+            <span class="status-strong">15 days</span>, <span class="status-strong">30 days</span>, <span class="status-strong">45 days</span> y <span class="status-strong">60 days</span>.
+          </p>
+        </div>
+        <div class="insight-card">
+          <div class="label">Filas procesadas</div>
+          <div class="accent-bar"></div>
+          <p class="audit-copy">
+            Windsor sí entregó el dataset mensual y permitió verificar que el período objetivo existe dentro de la extracción. Sin embargo, el conector no permitió
+            materializar en esta ejecución un subconjunto semanal auditable, por lo que el <span class="status-strong">total exacto de filas de la semana</span> queda
+            <span class="status-strong">pendiente de recálculo fiable</span>.
+          </p>
+        </div>
+      </div>
+      <table>
+        <thead>
+          <tr>
+            <th>Chequeo</th>
+            <th>Resultado</th>
+            <th>Impacto BI</th>
+          </tr>
+        </thead>
+        <tbody>
+          <tr>
+            <td>Recorte temporal semanal</td>
+            <td>Falló en el conector de Google Sheets</td>
+            <td>Impide calcular KPIs semanales finales con certeza ejecutiva</td>
+          </tr>
+          <tr>
+            <td>Formato de ROI</td>
+            <td>Texto decimal con casos de cero a la izquierda</td>
+            <td>Requiere limpieza previa antes de promedios o rankings</td>
+          </tr>
+          <tr>
+            <td>Formato de Acquisition_Cost</td>
+            <td>Texto monetario con símbolo y comas</td>
+            <td>Requiere parseo numérico antes de agregaciones</td>
+          </tr>
+          <tr>
+            <td>Validez del período objetivo</td>
+            <td>Válido dentro del dataset mensual recuperado</td>
+            <td>Permite seguir con un reporte limitado, no con un cierre KPI definitivo</td>
+          </tr>
+        </tbody>
+      </table>
+    </section>
+
+    <section class="section-card">
+      <div class="section-head">
+        <div>
+          <h2 class="section-title">2. DASHBOARD DE MÉTRICAS GLOBALES</h2>
+          <p class="section-intro">Los cuatro KPIs obligatorios se mantienen visibles, pero marcados según su grado real de calculabilidad en esta corrida.</p>
+        </div>
+      </div>
+      <div class="kpi-grid">
+        <div class="kpi-card">
+          <div class="label">Volumen Total de Impresiones</div>
+          <div class="kpi-value">No calculable</div>
+          <div class="kpi-note">La semana existe en la extracción, pero Windsor no permitió aislarla para sumar impresiones sin mezclar días fuera del período objetivo.</div>
+        </div>
+        <div class="kpi-card">
+          <div class="label">ROI Promedio</div>
+          <div class="kpi-value">No calculable</div>
+          <div class="kpi-note">El campo ROI requiere normalización y no fue posible recalcular un promedio exclusivo de 2021-01-25 a 2021-01-31 desde un subset limpio.</div>
+        </div>
+        <div class="kpi-card">
+          <div class="label">Costo de Adquisición Promedio</div>
+          <div class="kpi-value">No calculable</div>
+          <div class="kpi-note">El costo llega como texto monetario y la extracción semanal exacta no quedó separada en esta ejecución.</div>
+        </div>
+        <div class="kpi-card">
+          <div class="label">Tasa de Conversión Promedio</div>
+          <div class="kpi-value">No calculable</div>
+          <div class="kpi-note">La convención observable sigue siendo decimal, pero no corresponde informar un promedio semanal final sin aislamiento temporal confiable.</div>
+        </div>
+      </div>
+      <table>
+        <thead>
+          <tr>
+            <th>Métrica</th>
+            <th>Estado</th>
+            <th>Motivo</th>
+          </tr>
+        </thead>
+        <tbody>
+          <tr>
+            <td>Impresiones totales</td>
+            <td class="status-strong">Pendiente</td>
+            <td>Falta extracto semanal materializado</td>
+          </tr>
+          <tr>
+            <td>ROI promedio</td>
+            <td class="status-strong">Pendiente</td>
+            <td>Normalización necesaria + fallo de recorte semanal</td>
+          </tr>
+          <tr>
+            <td>Acquisition Cost promedio</td>
+            <td class="status-strong">Pendiente</td>
+            <td>Campo monetario en texto y sin subset semanal confiable</td>
+          </tr>
+          <tr>
+            <td>Conversion Rate promedio</td>
+            <td class="status-strong">Pendiente</td>
+            <td>Convención decimal visible, pero sin agregación semanal segura</td>
+          </tr>
+        </tbody>
+      </table>
+      <p class="table-note">
+        La decisión deliberada aquí fue no completar KPIs con estimaciones, promedios parciales ni extrapolaciones del mes completo.
+      </p>
+    </section>
+
+    <section class="section-card">
+      <div class="section-head">
+        <div>
+          <h2 class="section-title">3. ANÁLISIS CRUZADO DE EFICIENCIA</h2>
+          <p class="section-intro">Se diferencian con claridad tres niveles: hallazgo directo, indicio y limitación metodológica.</p>
+        </div>
+      </div>
+      <div class="insight-grid">
+        <div class="insight-card">
+          <div class="label">Mejor combinación Channel + Audience + Campaign</div>
+          <p class="insight-copy">
+            <span class="status-strong">No es metodológicamente válido declararla en esta ejecución.</span> La combinación semanal no pudo recalcularse con trazabilidad
+            porque Windsor expuso el mes completo y no permitió extraer la semana limpia para rankear retorno y eficiencia.
+          </p>
+        </div>
+        <div class="insight-card">
+          <div class="label">Larga vs. corta duración</div>
+          <p class="insight-copy">
+            <span class="status-strong">Sin conclusión robusta por segmento o ubicación.</span> El campo <span class="status-strong">duration</span> sí viene estructurado
+            y listo para clasificar corta versus larga, pero la ausencia de un subset semanal confiable impide sostener qué <span class="status-strong">Customer_Segment</span>
+            o <span class="status-strong">Location</span> reaccionan mejor en la semana objetivo.
+          </p>
+        </div>
+        <div class="insight-card">
+          <div class="label">Engagement Score vs. ROI</div>
+          <p class="insight-copy">
+            <span class="status-strong">No se puede afirmar una correlación visible semanal.</span> Ambos campos están presentes y el patrón puede estudiarse cuando Windsor
+            permita aislar la semana exacta, pero hoy no corresponde elevar una correlación parcial a insight ejecutivo.
+          </p>
+        </div>
+        <div class="insight-card">
+          <div class="label">Conclusión sobre el mejor canal</div>
+          <p class="insight-copy">
+            <span class="status-strong">No corresponde declarar un mejor canal definitivo.</span> Hay un indicio recurrente histórico hacia <span class="status-strong">Google Ads</span>
+            en ejecuciones previas, pero en esta corrida no quedó recalculado con el corte semanal objetivo y por eso no se presenta como hallazgo final.
+          </p>
+        </div>
+      </div>
+      <table>
+        <thead>
+          <tr>
+            <th>Pregunta de negocio</th>
+            <th>Estado</th>
+            <th>Lectura ejecutiva</th>
+          </tr>
+        </thead>
+        <tbody>
+          <tr>
+            <td>Mejor combinación de retorno y eficiencia</td>
+            <td class="status-strong">Indeterminada</td>
+            <td>Falta ranking semanal trazable</td>
+          </tr>
+          <tr>
+            <td>Segmento o ubicación más sensible a duración</td>
+            <td class="status-strong">Indeterminada</td>
+            <td>La variable existe, pero no quedó aislada para esa semana</td>
+          </tr>
+          <tr>
+            <td>Correlación Engagement Score vs ROI</td>
+            <td class="status-strong">No concluyente</td>
+            <td>No se fuerza señal estadística con base parcial</td>
+          </tr>
+          <tr>
+            <td>Mejor canal</td>
+            <td class="status-strong">No declarable</td>
+            <td>Se preserva rigor ejecutivo antes que un ranking débil</td>
+          </tr>
+        </tbody>
+      </table>
+    </section>
+
+    <section class="section-card">
+      <div class="section-head">
+        <div>
+          <h2 class="section-title">4. PLAN DE ACCIÓN RECOMENDADO</h2>
+          <p class="section-intro">Las tres decisiones siguientes están diseñadas para el próximo mes con foco en proteger presupuesto y corregir la trazabilidad del tablero.</p>
+        </div>
+      </div>
+      <div class="recommendation-grid">
+        <div class="recommendation-card">
+          <div class="recommendation-index">1</div>
+          <div class="label">Prioridad</div>
+          <p class="recommendation-copy">
+            <span class="status-strong">No mover el presupuesto estructural mensual en bloque hasta corregir el recorte semanal de Windsor.</span>
+            Mantén la base actual de inversión por canal y reserva solo un <span class="status-strong">5% a 10%</span> del presupuesto flexible para pruebas controladas.
+            La observación concreta detrás de esta decisión es que el período objetivo está presente, pero no quedó cuantificado con exactitud suficiente para reasignaciones amplias.
+          </p>
+        </div>
+        <div class="recommendation-card">
+          <div class="recommendation-index">2</div>
+          <div class="label">Canales a priorizar</div>
+          <p class="recommendation-copy">
+            <span class="status-strong">Concentra el presupuesto experimental en Google Ads</span> y evita expandir Facebook, Instagram, Website o Email con criterios de ganador semanal
+            hasta tener un corte limpio. La evidencia disponible en esta corrida no alcanza para coronar un canal, pero sí confirma que sería imprudente redistribuir fuerte hacia otros
+            medios sin recomputar antes el período 2021-01-25 a 2021-01-31.
+          </p>
+        </div>
+        <div class="recommendation-card">
+          <div class="recommendation-index">3</div>
+          <div class="label">Pausas y reducción</div>
+          <p class="recommendation-copy">
+            <span class="status-strong">Pausa decisiones de recorte por campaña, segmento o ubicación</span> y redirige el esfuerzo inmediato a corregir la extracción semanal en Google Sheets.
+            No hay evidencia suficiente en esta ejecución para reducir una combinación concreta con seriedad ejecutiva. La mejor reasignación hoy es operativa: mover tiempo del equipo
+            de reporting a asegurar un filtro semanal reproducible para que el próximo informe sí permita cortar inversión con nombre y apellido.
+          </p>
+        </div>
+      </div>
+      <p class="footer-note">
+        Informe generado el 2026-05-27. Diseño aplicado según el estándar ejecutivo Itaú del agente. Publicable en GitHub como registro semanal con limitación metodológica explícita.
+      </p>
+    </section>
+  </div>
+</body>
+</html>
