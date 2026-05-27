@@ -9,242 +9,374 @@
       --itau-orange: #FF6101;
       --itau-orange-soft: #F26B43;
       --itau-text: #000000;
-      --itau-text-muted: #252220;
+      --itau-muted: #252220;
       --itau-gray: #A4A3A4;
       --itau-bg: #FFFFFF;
       --itau-panel: #F7F4F2;
       --itau-border: #E7E1DC;
-      --success: #1f7a4d;
-      --shadow: 0 10px 30px rgba(0,0,0,0.06);
+      --itau-good: #1F7A1F;
+      --itau-warn: #8A4B00;
     }
     * { box-sizing: border-box; }
-    body { margin: 0; background: linear-gradient(180deg, #fff 0%, #fbf8f6 100%); color: var(--itau-text); font-family: "Itau Display Pro", "Itau Display Pro Regular", "Helvetica Neue", Arial, sans-serif; }
-    .report-shell { max-width: 1320px; margin: 0 auto; padding: 32px; }
-    .hero, .section-card, .kpi-card, .insight-card, .recommendation-card { background: #fff; border: 1px solid var(--itau-border); border-radius: 20px; box-shadow: var(--shadow); }
-    .hero { padding: 28px 32px; position: relative; overflow: hidden; }
-    .hero::before { content: ""; position: absolute; inset: 0 auto 0 0; width: 8px; background: linear-gradient(180deg, var(--itau-orange), var(--itau-orange-soft)); }
-    .eyebrow { color: var(--itau-orange); text-transform: uppercase; letter-spacing: .08em; font-size: 12px; font-weight: 700; margin-bottom: 12px; }
-    h1 { margin: 0; font-size: 38px; line-height: 1.05; }
-    .hero p { max-width: 900px; font-size: 16px; line-height: 1.55; color: var(--itau-text-muted); }
-    .meta-row { display: flex; flex-wrap: wrap; gap: 10px; margin-top: 18px; }
-    .badge { display: inline-flex; align-items: center; padding: 7px 12px; border-radius: 999px; background: var(--itau-panel); color: var(--itau-text-muted); font-size: 12px; font-weight: 700; border: 1px solid var(--itau-border); }
-    .badge.accent { background: rgba(255,97,1,.09); color: var(--itau-orange); border-color: rgba(255,97,1,.2); }
-    .kpi-grid { display: grid; grid-template-columns: repeat(4, minmax(0, 1fr)); gap: 18px; margin: 24px 0 28px; }
-    .kpi-card { padding: 22px; min-height: 150px; display: flex; flex-direction: column; justify-content: space-between; }
-    .kpi-label { font-size: 12px; text-transform: uppercase; letter-spacing: .08em; color: var(--itau-text-muted); font-weight: 700; }
-    .kpi-value { font-size: 34px; font-weight: 800; line-height: 1.05; margin: 8px 0 10px; }
-    .kpi-note { font-size: 14px; color: var(--itau-text-muted); line-height: 1.4; }
-    .section-card { padding: 26px 28px; margin-top: 24px; }
-    .section-title { display: flex; align-items: center; gap: 12px; margin: 0 0 10px; font-size: 24px; }
-    .section-number { width: 34px; height: 34px; display: inline-flex; align-items: center; justify-content: center; border-radius: 999px; background: var(--itau-orange); color: #fff; font-size: 16px; font-weight: 800; flex: 0 0 auto; }
-    .section-intro { color: var(--itau-text-muted); font-size: 15px; line-height: 1.55; margin: 0 0 18px; }
-    .audit-grid, .insight-grid { display: grid; grid-template-columns: repeat(2, minmax(0, 1fr)); gap: 18px; }
-    .insight-card { padding: 18px 20px; }
-    .insight-card h3 { margin: 0 0 8px; font-size: 16px; }
-    .insight-card p { margin: 0; font-size: 14px; line-height: 1.5; color: var(--itau-text-muted); }
-    .data-list { margin: 0; padding: 0; list-style: none; }
-    .data-list li { padding: 12px 0; border-bottom: 1px solid var(--itau-border); font-size: 14px; display: flex; justify-content: space-between; gap: 16px; }
-    .data-list li:last-child { border-bottom: 0; }
-    .data-list strong { color: var(--itau-text); }
-    .table-card { background: var(--itau-panel); border: 1px solid var(--itau-border); border-radius: 18px; padding: 16px; margin-top: 18px; overflow-x: auto; }
-    table { width: 100%; border-collapse: collapse; font-size: 14px; }
-    th, td { padding: 12px 10px; border-bottom: 1px solid var(--itau-border); text-align: left; vertical-align: top; }
-    th { font-size: 12px; text-transform: uppercase; letter-spacing: .06em; color: var(--itau-text-muted); }
-    td:nth-child(n+4), th:nth-child(n+4) { text-align: right; }
-    .two-col { display: grid; grid-template-columns: 1.1fr .9fr; gap: 18px; }
-    .callout { border: 1px solid rgba(255,97,1,.18); background: linear-gradient(180deg, rgba(255,97,1,.08), rgba(255,97,1,.03)); border-radius: 18px; padding: 18px 20px; }
-    .callout h3 { margin: 0 0 10px; font-size: 18px; }
-    .callout p { margin: 0; color: var(--itau-text-muted); line-height: 1.55; }
-    .recommendations { display: grid; gap: 16px; margin-top: 18px; }
-    .recommendation-card { display: grid; grid-template-columns: 64px 1fr; gap: 18px; padding: 20px; }
-    .recommendation-index { width: 48px; height: 48px; border-radius: 16px; background: var(--itau-orange); color: #fff; font-size: 24px; font-weight: 800; display: flex; align-items: center; justify-content: center; margin-top: 4px; }
-    .recommendation-card h3 { margin: 0 0 8px; font-size: 20px; }
-    .recommendation-card p { margin: 8px 0 0; font-size: 14px; line-height: 1.55; color: var(--itau-text-muted); }
-    .footer-note { margin-top: 20px; font-size: 13px; color: var(--itau-text-muted); }
-    @media (max-width: 1100px) { .kpi-grid, .audit-grid, .insight-grid, .two-col { grid-template-columns: 1fr 1fr; } }
-    @media (max-width: 760px) { .report-shell { padding: 18px; } .kpi-grid, .audit-grid, .insight-grid, .two-col { grid-template-columns: 1fr; } h1 { font-size: 30px; } .recommendation-card { grid-template-columns: 1fr; } .recommendation-index { margin-top: 0; } }
+    body {
+      margin: 0;
+      background: linear-gradient(180deg, #FFF8F2 0%, #FFFFFF 18%);
+      color: var(--itau-text);
+      font-family: "Itau Display Pro", "Itau Display Pro Regular", "Helvetica Neue", Arial, sans-serif;
+    }
+    .report-shell {
+      max-width: 1240px;
+      margin: 0 auto;
+      padding: 32px 24px 56px;
+    }
+    .hero {
+      background: var(--itau-bg);
+      border: 1px solid var(--itau-border);
+      border-top: 6px solid var(--itau-orange);
+      border-radius: 22px;
+      padding: 28px;
+      box-shadow: 0 12px 30px rgba(0,0,0,0.05);
+    }
+    .eyebrow {
+      font-size: 12px;
+      letter-spacing: 0.08em;
+      text-transform: uppercase;
+      color: var(--itau-orange);
+      font-weight: 700;
+    }
+    h1 {
+      margin: 10px 0 10px;
+      font-size: 38px;
+      line-height: 1.05;
+    }
+    .hero p {
+      margin: 0;
+      max-width: 900px;
+      font-size: 16px;
+      line-height: 1.5;
+      color: var(--itau-muted);
+    }
+    .meta-row {
+      display: flex;
+      flex-wrap: wrap;
+      gap: 10px;
+      margin-top: 18px;
+    }
+    .badge {
+      display: inline-flex;
+      align-items: center;
+      gap: 6px;
+      border-radius: 999px;
+      padding: 8px 12px;
+      background: #FFF1E8;
+      color: var(--itau-orange);
+      font-size: 12px;
+      font-weight: 700;
+      border: 1px solid #FFD7BF;
+    }
+    .section-card {
+      margin-top: 26px;
+      background: var(--itau-bg);
+      border: 1px solid var(--itau-border);
+      border-radius: 20px;
+      padding: 26px;
+      box-shadow: 0 12px 28px rgba(0,0,0,0.04);
+    }
+    .section-title {
+      margin: 0 0 8px;
+      font-size: 24px;
+      line-height: 1.2;
+    }
+    .section-intro {
+      margin: 0 0 20px;
+      color: var(--itau-muted);
+      font-size: 15px;
+      line-height: 1.55;
+    }
+    .audit-grid, .insight-grid, .recommendation-grid {
+      display: grid;
+      grid-template-columns: repeat(2, minmax(0, 1fr));
+      gap: 18px;
+    }
+    .recommendation-grid {
+      grid-template-columns: repeat(3, minmax(0, 1fr));
+    }
+    .audit-item, .insight, .recommendation {
+      background: var(--itau-panel);
+      border: 1px solid var(--itau-border);
+      border-radius: 18px;
+      padding: 18px;
+    }
+    .audit-item h3, .insight h3, .recommendation h3 {
+      margin: 0 0 10px;
+      font-size: 16px;
+    }
+    .audit-item p, .insight p, .recommendation p {
+      margin: 0;
+      font-size: 14px;
+      line-height: 1.55;
+      color: var(--itau-muted);
+    }
+    .kpi-grid {
+      margin-top: 20px;
+      display: grid;
+      grid-template-columns: repeat(4, minmax(0, 1fr));
+      gap: 16px;
+    }
+    .kpi-card {
+      background: var(--itau-bg);
+      border: 1px solid var(--itau-border);
+      border-radius: 18px;
+      padding: 18px;
+      box-shadow: 0 8px 18px rgba(0,0,0,0.03);
+      position: relative;
+      overflow: hidden;
+    }
+    .kpi-card::before {
+      content: "";
+      position: absolute;
+      inset: 0 auto auto 0;
+      width: 100%;
+      height: 4px;
+      background: var(--itau-orange);
+    }
+    .kpi-label {
+      display: block;
+      font-size: 12px;
+      letter-spacing: 0.04em;
+      text-transform: uppercase;
+      color: var(--itau-gray);
+      font-weight: 700;
+      margin-bottom: 10px;
+    }
+    .kpi-value {
+      display: block;
+      font-size: 32px;
+      line-height: 1;
+      font-weight: 800;
+      margin-bottom: 8px;
+    }
+    .kpi-note {
+      font-size: 13px;
+      color: var(--itau-muted);
+      line-height: 1.45;
+    }
+    .subsection { margin-top: 22px; }
+    .subsection h3 { margin: 0 0 12px; font-size: 18px; }
+    table {
+      width: 100%;
+      border-collapse: collapse;
+      background: #fff;
+      border: 1px solid var(--itau-border);
+      border-radius: 14px;
+      overflow: hidden;
+    }
+    th, td {
+      padding: 12px 10px;
+      border-bottom: 1px solid var(--itau-border);
+      text-align: left;
+      font-size: 13px;
+      vertical-align: top;
+    }
+    th {
+      background: #FBF7F4;
+      color: var(--itau-text);
+      font-weight: 700;
+    }
+    tr:last-child td { border-bottom: none; }
+    .callout {
+      margin-top: 18px;
+      padding: 18px;
+      border-left: 4px solid var(--itau-orange);
+      background: #FFF7F1;
+      border-radius: 0 16px 16px 0;
+      color: var(--itau-muted);
+      font-size: 14px;
+      line-height: 1.6;
+    }
+    .evidence {
+      display: grid;
+      grid-template-columns: repeat(3, minmax(0, 1fr));
+      gap: 14px;
+      margin-top: 18px;
+    }
+    .evidence .metric-box {
+      background: #FFF;
+      border: 1px solid var(--itau-border);
+      border-radius: 16px;
+      padding: 14px;
+    }
+    .metric-box strong { display: block; font-size: 24px; margin-bottom: 6px; }
+    .metric-box span { font-size: 13px; color: var(--itau-muted); line-height: 1.45; display: block; }
+    .recommendation-index {
+      width: 32px;
+      height: 32px;
+      border-radius: 50%;
+      display: inline-flex;
+      align-items: center;
+      justify-content: center;
+      background: var(--itau-orange);
+      color: white;
+      font-size: 14px;
+      font-weight: 800;
+      margin-bottom: 12px;
+    }
+    ul.tight {
+      margin: 12px 0 0;
+      padding-left: 18px;
+      color: var(--itau-muted);
+      font-size: 14px;
+      line-height: 1.5;
+    }
+    @media (max-width: 980px) {
+      .kpi-grid, .audit-grid, .insight-grid, .recommendation-grid, .evidence { grid-template-columns: 1fr 1fr; }
+    }
+    @media (max-width: 720px) {
+      .report-shell { padding: 18px 14px 36px; }
+      h1 { font-size: 30px; }
+      .kpi-grid, .audit-grid, .insight-grid, .recommendation-grid, .evidence { grid-template-columns: 1fr; }
+      .section-card { padding: 20px; }
+      .kpi-value { font-size: 28px; }
+    }
   </style>
 </head>
 <body>
   <div class="report-shell">
     <header class="hero">
-      <div class="eyebrow">Informe Ejecutivo de Marketing</div>
-      <h1>Rendimiento consolidado de la operación en Windsor</h1>
-      <p>El dataset recuperado desde Windsor contiene 3,432 filas válidas, cubre 2021-01-01 a 2021-01-31 y muestra un liderazgo consistente de Website en retorno global. La mejor oportunidad táctica aparece en Website + Women 25-34 + Social Media, mientras que la duración óptima cambia por mercado: Miami favorece campañas largas y Houston campañas cortas.</p>
+      <div class="eyebrow">Windsor ai · Informe Ejecutivo</div>
+      <h1>Rendimiento de Marketing</h1>
+      <p>Website fue el canal más sólido del dataset completo: lideró el ROI promedio (5.11) y además sostuvo el CAC más bajo ($12,283) entre los 6 canales analizados. El análisis se construyó exclusivamente con el dataset completo recuperado en esta ejecución, sin filtrar fechas en la extracción.</p>
       <div class="meta-row">
-        <span class="badge accent">Fuente: Windsor / Google Sheets</span>
-        <span class="badge default">Cobertura observada: 2021-01-01 a 2021-01-31</span>
-        <span class="badge default">Filas procesadas: 3,432</span>
-        <span class="badge default">Fecha de generación: 2026-05-27</span>
+        <span class="badge">Fuente: Windsor / Google Sheets</span>
+        <span class="badge">Cobertura observada: 2021-01-01 a 2021-01-31</span>
+        <span class="badge">Filas procesadas: 3,432</span>
+        <span class="badge">Tasa de conversión interpretada como proporción decimal</span>
       </div>
     </header>
 
     <section class="section-card">
-      <h2 class="section-title"><span class="section-number">1</span>AUDITORÍA Y COMPRENSIÓN DE DATOS</h2>
-      <p class="section-intro">El dataset fue analizado completo, sin aplicar filtros temporales, y luego normalizado para convertir texto a métricas utilizables. La calidad general es alta, con una única anomalía sistemática en la columna de ROI que pudo corregirse sin excluir filas.</p>
+      <h2 class="section-title">1. AUDITORÍA Y COMPRENSIÓN DE DATOS (Data Sanity Check)</h2>
+      <p class="section-intro">Conclusión: el dataset es analizable de punta a punta. No hubo filas descartadas, todas las columnas críticas llegaron completas y la única normalización relevante fue estandarizar valores monetarios y 313 filas de ROI con cero a la izquierda.</p>
       <div class="audit-grid">
-        <div class="insight-card">
-          <h3>Sanity check de estructura y completitud</h3>
-          <ul class="data-list">
-            <li><strong>Columnas críticas disponibles</strong><span>15 de 15 esperadas</span></li>
-            <li><strong>Filas procesadas correctamente</strong><span>3,432 de 3,432</span></li>
-            <li><strong>Filas excluidas por calidad</strong><span>0</span></li>
-            <li><strong>Valores nulos o vacíos</strong><span>0 en columnas críticas</span></li>
-            <li><strong>Cobertura temporal observable</strong><span>2021-01-01 a 2021-01-31 (31 fechas)</span></li>
-          </ul>
+        <div class="audit-item">
+          <h3>Completitud</h3>
+          <p>Se procesaron correctamente <strong>3,432</strong> de <strong>3,432</strong> filas. Las 15 columnas analíticas obligatorias llegaron sin nulos ni vacíos. La cobertura temporal observable del dataset va de <strong>2021-01-01</strong> a <strong>2021-01-31</strong>.</p>
         </div>
-        <div class="insight-card">
-          <h3>Anomalías relevantes detectadas</h3>
-          <ul class="data-list">
-            <li><strong>ROI con cero a la izquierda</strong><span>313 filas normalizadas</span></li>
-            <li><strong>Formato de costo</strong><span>Consistente, sin fallas detectadas</span></li>
-            <li><strong>Formato de fechas</strong><span>Consistente, sin fallas detectadas</span></li>
-            <li><strong>Tasas y métricas numéricas</strong><span>Sin valores fuera de rango tras la limpieza</span></li>
-            <li><strong>Convención usada</strong><span>Conversion_Rate tratado como decimal y reportado en %</span></li>
-          </ul>
+        <div class="audit-item">
+          <h3>Normalización aplicada</h3>
+          <p>Se convirtieron <strong>Acquisition_Cost</strong> desde formato moneda a número, <strong>Clicks</strong>, <strong>Impressions</strong> y <strong>Engagement_Score</strong> a enteros, <strong>Duration</strong> a días y <strong>Conversion_Rate</strong> y <strong>ROI</strong> a formato numérico consistente. La convención usada para <strong>Conversion_Rate</strong> fue decimal: por ejemplo, 0.09 equivale a 9.00%.</p>
+        </div>
+        <div class="audit-item">
+          <h3>Anomalías detectadas</h3>
+          <p>No se encontraron fechas inválidas ni métricas numéricas imposibles de parsear. La anomalía más visible fue la presencia de <strong>313</strong> filas con ROI con cero a la izquierda, por ejemplo 07.06; se normalizaron sin pérdida de valor. No hubo exclusiones por calidad de datos.</p>
+        </div>
+        <div class="audit-item">
+          <h3>Trazabilidad mínima</h3>
+          <p>La estructura del origen permite comparar canal, audiencia, tipo de campaña, duración, ubicación y segmento de cliente. La principal limitación analítica es que el dataset no trae ingreso absoluto ni conversiones totales, por lo que el análisis se apoya en ROI, CAC y tasa de conversión ya entregados en la fuente.</p>
         </div>
       </div>
-      <p class="footer-note">Observación metodológica: Windsor devolvió un histórico completo de enero de 2021. Ese rango no se trató como fallo porque el dataset sí fue trazable y suficiente para sostener los cálculos requeridos.</p>
     </section>
 
     <section class="section-card">
-      <h2 class="section-title"><span class="section-number">2</span>DASHBOARD DE MÉTRICAS GLOBALES</h2>
-      <p class="section-intro">A nivel agregado, la operación mantiene un ROI promedio estable sobre una base amplia de impresiones, con costo de adquisición medio alineado al volumen recuperado desde Windsor.</p>
+      <h2 class="section-title">2. DASHBOARD DE MÉTRICAS GLOBALES (Cálculos de BI)</h2>
+      <p class="section-intro">Conclusión: la operación muestra un ROI medio sano y un volumen amplio de exposición. La mejor lectura global está en la consistencia por canal, donde Website combina el retorno promedio más alto con el CAC promedio más bajo.</p>
       <div class="kpi-grid">
-        <article class="kpi-card">
-          <div class="kpi-label">Volumen Total de Impresiones</div>
-          <div class="kpi-value">18,949,849</div>
-          <div class="kpi-note">Suma total del inventario visible en las 3,432 filas analizadas.</div>
-        </article>
-        <article class="kpi-card">
-          <div class="kpi-label">ROI Promedio</div>
-          <div class="kpi-value">5.02</div>
-          <div class="kpi-note">Promedio simple de la columna ROI, luego de normalizar formatos inconsistentes.</div>
-        </article>
-        <article class="kpi-card">
-          <div class="kpi-label">Costo de Adquisición Promedio</div>
-          <div class="kpi-value">US$12,539.05</div>
-          <div class="kpi-note">Promedio del costo de adquisición reportado por fila en el dataset.</div>
-        </article>
-        <article class="kpi-card">
-          <div class="kpi-label">Tasa de Conversión Promedio</div>
-          <div class="kpi-value">8.10%</div>
-          <div class="kpi-note">Promedio simple de Conversion_Rate, interpretado como decimal.</div>
-        </article>
+        <div class="kpi-card">
+          <span class="kpi-label">Volumen Total de Impresiones</span>
+          <span class="kpi-value">18,949,849</span>
+          <span class="kpi-note">Suma de todas las impresiones observadas en el dataset completo.</span>
+        </div>
+        <div class="kpi-card">
+          <span class="kpi-label">ROI Promedio</span>
+          <span class="kpi-value">5.02</span>
+          <span class="kpi-note">Promedio simple de ROI a nivel fila, tras normalización completa.</span>
+        </div>
+        <div class="kpi-card">
+          <span class="kpi-label">Costo de Adquisición Promedio</span>
+          <span class="kpi-value">$12,539</span>
+          <span class="kpi-note">Promedio simple de Acquisition_Cost en toda la operación.</span>
+        </div>
+        <div class="kpi-card">
+          <span class="kpi-label">Tasa de Conversión Promedio</span>
+          <span class="kpi-value">8.10%</span>
+          <span class="kpi-note">Promedio simple de Conversion_Rate, interpretada como proporción decimal.</span>
+        </div>
       </div>
-      <div class="table-card">
-        <table>
-          <thead>
-            <tr><th>Canal</th><th>ROI Prom.</th><th>Conv. Prom.</th><th>CAC Prom.</th><th>Impresiones</th><th>Filas</th></tr>
-          </thead>
-          <tbody><tr><td>Website</td><td>5.11</td><td>7.98%</td><td>US$12,283.41</td><td>3,451,939</td><td>624</td></tr><tr><td>Facebook</td><td>5.07</td><td>8.06%</td><td>US$12,488.61</td><td>3,072,222</td><td>565</td></tr><tr><td>Google Ads</td><td>5.06</td><td>8.18%</td><td>US$12,606.14</td><td>3,161,595</td><td>560</td></tr><tr><td>Instagram</td><td>5.02</td><td>7.92%</td><td>US$12,734.59</td><td>3,165,552</td><td>564</td></tr><tr><td>Email</td><td>4.97</td><td>8.04%</td><td>US$12,824.75</td><td>3,103,143</td><td>557</td></tr><tr><td>YouTube</td><td>4.88</td><td>8.45%</td><td>US$12,327.38</td><td>2,995,398</td><td>562</td></tr></tbody>
-        </table>
+      <div class="subsection">
+        <h3>Resumen por canal</h3>
+        <table><thead><tr><th>Canal</th><th>Campañas</th><th>ROI prom.</th><th>CAC prom.</th><th>Conv. prom.</th><th>Impresiones</th></tr></thead><tbody><tr><td>Website</td><td>624</td><td>5.11</td><td>$12,283</td><td>7.98%</td><td>3,451,939</td></tr><tr><td>Facebook</td><td>565</td><td>5.07</td><td>$12,489</td><td>8.06%</td><td>3,072,222</td></tr><tr><td>Google Ads</td><td>560</td><td>5.06</td><td>$12,606</td><td>8.18%</td><td>3,161,595</td></tr><tr><td>Instagram</td><td>564</td><td>5.02</td><td>$12,735</td><td>7.92%</td><td>3,165,552</td></tr><tr><td>Email</td><td>557</td><td>4.97</td><td>$12,825</td><td>8.04%</td><td>3,103,143</td></tr><tr><td>YouTube</td><td>562</td><td>4.88</td><td>$12,327</td><td>8.45%</td><td>2,995,398</td></tr></tbody></table>
+      </div>
+      <div class="callout">El mejor canal global fue <strong>Website</strong> con ROI promedio de <strong>5.11</strong>, CAC promedio de <strong>$12,283</strong> y conversión promedio de <strong>7.98%</strong>. Aunque YouTube lideró en conversión promedio (8.45%), quedó último en ROI (4.88), lo que refuerza que conversión aislada no explica eficiencia total.</div>
+    </section>
+
+    <section class="section-card">
+      <h2 class="section-title">3. ANÁLISIS CRUZADO DE EFICIENCIA (Insights de Negocio)</h2>
+      <p class="section-intro">Conclusión: la combinación más equilibrada fue <strong>Instagram + Women 25-34 + Search</strong>. En duración, el dataset premia corto plazo para Foodies y Houston, mientras que campañas largas funcionan mejor en Fashionistas y Miami. No aparece una correlación visible entre Engagement_Score y ROI.</p>
+      <div class="insight-grid">
+        <div class="insight">
+          <h3>Mejor combinación por retorno y eficiencia</h3>
+          <p><strong>Instagram + Women 25-34 + Search</strong> obtuvo el mejor balance conjunto del dataset: ROI promedio de <strong>5.50</strong>, CAC promedio de <strong>$11,542</strong>, conversión promedio de <strong>10.73%</strong> y <strong>22</strong> campañas observadas. Fue la combinación con la mejor conversión de todas y, al mismo tiempo, se mantuvo en el cuartil alto de ROI y en el grupo de CAC más bajos.</p>
+        </div>
+        <div class="insight">
+          <h3>Retorno puro vs. eficiencia balanceada</h3>
+          <p>La combinación con mayor ROI puro fue <strong>Website + Women 25-34 + Social Media</strong>, con <strong>6.09</strong>. Sin embargo, su CAC promedio fue <strong>$13,677</strong>, bastante mayor que el de la combinación balanceada. Por eso no fue la mejor opción integral para reasignación de presupuesto.</p>
+        </div>
+        <div class="insight">
+          <h3>Segmentos que responden mejor a larga vs. corta duración</h3>
+          <p><strong>Foodies</strong> reaccionó mejor a campañas cortas: ROI de <strong>5.21</strong> frente a <strong>5.08</strong> en campañas largas. En el extremo opuesto, <strong>Fashionistas</strong> respondió mejor a campañas largas: ROI de <strong>5.10</strong> frente a <strong>5.04</strong> en campañas cortas, además con un CAC ligeramente menor en la versión larga.</p>
+        </div>
+        <div class="insight">
+          <h3>Ubicaciones que responden mejor a larga vs. corta duración</h3>
+          <p><strong>Houston</strong> fue la ubicación donde el formato corto funcionó claramente mejor: ROI de <strong>5.16</strong> versus <strong>4.95</strong> en campañas largas. En cambio, <strong>Miami</strong> fue la plaza más favorable para campañas largas: ROI de <strong>5.15</strong> frente a <strong>4.91</strong> en campañas cortas.</p>
+        </div>
+      </div>
+      <div class="evidence">
+        <div class="metric-box">
+          <strong>0.011</strong>
+          <span>Correlación de Pearson entre Engagement_Score y ROI. El valor es prácticamente cero, así que no hay una relación lineal visible ni utilizable para decisiones ejecutivas.</span>
+        </div>
+        <div class="metric-box">
+          <strong>Website</strong>
+          <span>Mejor canal global por combinar el ROI promedio más alto con el CAC promedio más bajo, sin sacrificar conversión frente al promedio general.</span>
+        </div>
+        <div class="metric-box">
+          <strong>10.73%</strong>
+          <span>Conversión promedio de la mejor combinación balanceada, la más alta de todas las combinaciones Channel_Used + Target_Audience + Campaign_Type observadas.</span>
+        </div>
+      </div>
+      <div class="subsection">
+        <h3>Top 5 combinaciones balanceadas</h3>
+        <table><thead><tr><th>Canal</th><th>Audiencia</th><th>Tipo de campaña</th><th>Campañas</th><th>ROI prom.</th><th>CAC prom.</th><th>Conv. prom.</th><th>Score balance</th></tr></thead><tbody><tr><td>Instagram</td><td>Women 25-34</td><td>Search</td><td>22</td><td>5.50</td><td>$11,542</td><td>10.73%</td><td>36</td></tr><tr><td>Website</td><td>Men 25-34</td><td>Search</td><td>20</td><td>5.16</td><td>$11,128</td><td>8.90%</td><td>84</td></tr><tr><td>Website</td><td>All Ages</td><td>Social Media</td><td>27</td><td>5.41</td><td>$10,061</td><td>8.15%</td><td>98</td></tr><tr><td>Facebook</td><td>All Ages</td><td>Social Media</td><td>18</td><td>5.84</td><td>$11,511</td><td>8.06%</td><td>102</td></tr><tr><td>YouTube</td><td>Men 25-34</td><td>Influencer</td><td>29</td><td>5.36</td><td>$11,935</td><td>8.69%</td><td>103</td></tr></tbody></table>
+      </div>
+      <div class="subsection">
+        <h3>Respuesta por duración en Customer_Segment</h3>
+        <table><thead><tr><th>Segmento</th><th>ROI corto</th><th>ROI largo</th><th>Conv. corta</th><th>Conv. larga</th><th>CAC corto</th><th>CAC largo</th></tr></thead><tbody><tr><td>Fashionistas</td><td>5.04</td><td>5.10</td><td>7.97%</td><td>7.93%</td><td>$12,493</td><td>$12,306</td></tr><tr><td>Foodies</td><td>5.21</td><td>5.08</td><td>8.25%</td><td>7.99%</td><td>$12,825</td><td>$12,482</td></tr><tr><td>Health & Wellness</td><td>4.98</td><td>4.99</td><td>8.60%</td><td>8.14%</td><td>$12,510</td><td>$12,187</td></tr><tr><td>Outdoor Adventurers</td><td>4.95</td><td>5.00</td><td>8.22%</td><td>7.71%</td><td>$12,831</td><td>$12,581</td></tr><tr><td>Tech Enthusiasts</td><td>4.93</td><td>4.92</td><td>8.31%</td><td>7.88%</td><td>$12,866</td><td>$12,344</td></tr></tbody></table>
+      </div>
+      <div class="subsection">
+        <h3>Respuesta por duración en Location</h3>
+        <table><thead><tr><th>Ubicación</th><th>ROI corto</th><th>ROI largo</th><th>Conv. corta</th><th>Conv. larga</th><th>CAC corto</th><th>CAC largo</th></tr></thead><tbody><tr><td>Chicago</td><td>4.95</td><td>4.98</td><td>8.07%</td><td>7.78%</td><td>$12,731</td><td>$12,148</td></tr><tr><td>Houston</td><td>5.16</td><td>4.95</td><td>8.67%</td><td>8.02%</td><td>$12,682</td><td>$12,440</td></tr><tr><td>Los Angeles</td><td>5.09</td><td>5.05</td><td>8.15%</td><td>7.85%</td><td>$13,132</td><td>$12,495</td></tr><tr><td>Miami</td><td>4.91</td><td>5.15</td><td>8.21%</td><td>7.78%</td><td>$12,632</td><td>$12,529</td></tr><tr><td>New York</td><td>4.99</td><td>4.97</td><td>8.22%</td><td>8.25%</td><td>$12,347</td><td>$12,259</td></tr></tbody></table>
       </div>
     </section>
 
     <section class="section-card">
-      <h2 class="section-title"><span class="section-number">3</span>ANÁLISIS CRUZADO DE EFICIENCIA</h2>
-      <p class="section-intro">La lectura cruzada del dataset deja una conclusión principal: Website fue el mejor canal en retorno promedio global, pero la eficiencia cambia cuando se combinan audiencia, tipo de campaña, duración y geografía.</p>
-      <div class="two-col">
-        <div class="callout">
-          <h3>Conclusión principal</h3>
-          <p>El mejor canal del dataset fue <strong>Website</strong>, con ROI promedio de <strong>5.11</strong>, conversión promedio de <strong>7.98%</strong>, costo de adquisición promedio de <strong>US$12,283.41</strong> y una escala de <strong>624 registros</strong>. La mejor combinación específica fue <strong>Website + Women 25-34 + Social Media</strong>, con ROI promedio de <strong>6.09</strong> y conversión de <strong>8.48%</strong>.</p>
+      <h2 class="section-title">4. PLAN DE ACCIÓN RECOMENDADO (Decisiones de Negocio)</h2>
+      <p class="section-intro">Conclusión: el próximo mes conviene mover presupuesto hacia Website y hacia la combinación Instagram + Women 25-34 + Search, mientras se reduce exposición en formatos donde el dataset muestra mejor conversión pero peor retorno económico total.</p>
+      <div class="recommendation-grid">
+        <div class="recommendation">
+          <div class="recommendation-index">1</div>
+          <h3>Escalar Website como canal base de eficiencia</h3>
+          <p>Priorizar <strong>Website</strong> como canal central del próximo mes porque lideró el ROI promedio (<strong>5.11</strong>) y además registró el CAC promedio más bajo (<strong>$12,283</strong>) del mix. Reducir parte del presupuesto de <strong>YouTube</strong>, que quedó con el ROI promedio más débil (<strong>4.88</strong>), y reasignarlo a Website para capturar eficiencia sin perder volumen.</p>
         </div>
-        <div class="insight-grid">
-          <article class="insight-card">
-            <h3>Duración por Customer_Segment</h3>
-            <p><strong>Fashionistas</strong> reaccionó mejor a campañas largas: ROI 5.10 vs 5.04 en campañas cortas. En cambio, <strong>Foodies</strong> rindió mejor en campañas cortas: ROI 5.21 vs 5.08.</p>
-          </article>
-          <article class="insight-card">
-            <h3>Duración por Location</h3>
-            <p><strong>Miami</strong> mostró mayor respuesta a campañas largas: ROI 5.15 vs 4.91. Por el contrario, <strong>Houston</strong> respondió mejor a campañas cortas: ROI 5.16 vs 4.95.</p>
-          </article>
-          <article class="insight-card">
-            <h3>Engagement vs ROI</h3>
-            <p>No hay una correlación visible relevante entre Engagement_Score y ROI. El coeficiente de Pearson fue <strong>0.011</strong>, lo que indica una relación prácticamente nula y desaconseja usar engagement como proxy directo de rentabilidad.</p>
-          </article>
-          <article class="insight-card">
-            <h3>Lectura ejecutiva</h3>
-            <p>Website lidera el retorno medio global, Facebook y Google Ads sostienen el segundo escalón de desempeño, y varias combinaciones de Influencer en Website y YouTube quedaron en la zona baja del ranking con costos similares a combinaciones mucho más rentables.</p>
-          </article>
+        <div class="recommendation">
+          <div class="recommendation-index">2</div>
+          <h3>Concentrar expansión táctica en Instagram + Women 25-34 + Search</h3>
+          <p>Subir inversión en la combinación <strong>Instagram + Women 25-34 + Search</strong>, porque fue la mejor combinación integral por retorno y eficiencia: <strong>5.50</strong> de ROI, <strong>$11,542</strong> de CAC y <strong>10.73%</strong> de conversión. La evidencia sostiene mover presupuesto desde combinaciones de alto costo y retorno menos equilibrado, incluso cuando tengan picos aislados de ROI puro.</p>
         </div>
-      </div>
-      <div class="table-card">
-        <table>
-          <thead>
-            <tr><th>Canal</th><th>Audiencia</th><th>Tipo de campaña</th><th>ROI Prom.</th><th>Conv. Prom.</th><th>CAC Prom.</th><th>Filas</th></tr>
-          </thead>
-          <tbody><tr><td>Website</td><td>Women 25-34</td><td>Social Media</td><td>6.09</td><td>8.48%</td><td>US$13,676.91</td><td>23</td></tr><tr><td>Email</td><td>Men 25-34</td><td>Influencer</td><td>5.86</td><td>7.52%</td><td>US$14,301.43</td><td>21</td></tr><tr><td>Instagram</td><td>Men 18-24</td><td>Search</td><td>5.86</td><td>8.17%</td><td>US$12,520.75</td><td>24</td></tr><tr><td>Facebook</td><td>All Ages</td><td>Social Media</td><td>5.84</td><td>8.06%</td><td>US$11,511.28</td><td>18</td></tr><tr><td>Website</td><td>Men 18-24</td><td>Social Media</td><td>5.84</td><td>7.69%</td><td>US$11,366.75</td><td>16</td></tr><tr><td>Facebook</td><td>Women 25-34</td><td>Display</td><td>5.73</td><td>8.95%</td><td>US$13,204.26</td><td>19</td></tr></tbody>
-        </table>
-      </div>
-      <div class="two-col" style="margin-top:18px;">
-        <div class="table-card">
-          <table>
-            <thead>
-              <tr><th>Customer Segment</th><th>Duración</th><th>ROI Prom.</th><th>Conv. Prom.</th><th>Filas</th></tr>
-            </thead>
-            <tbody><tr><td>Fashionistas</td><td>Long</td><td>5.10</td><td>7.93%</td><td>352</td></tr><tr><td>Fashionistas</td><td>Short</td><td>5.04</td><td>7.97%</td><td>362</td></tr><tr><td>Foodies</td><td>Long</td><td>5.08</td><td>7.99%</td><td>340</td></tr><tr><td>Foodies</td><td>Short</td><td>5.21</td><td>8.25%</td><td>343</td></tr><tr><td>Health &amp; Wellness</td><td>Long</td><td>4.99</td><td>8.14%</td><td>363</td></tr><tr><td>Health &amp; Wellness</td><td>Short</td><td>4.98</td><td>8.60%</td><td>324</td></tr><tr><td>Outdoor Adventurers</td><td>Long</td><td>5.00</td><td>7.71%</td><td>312</td></tr><tr><td>Outdoor Adventurers</td><td>Short</td><td>4.95</td><td>8.22%</td><td>335</td></tr><tr><td>Tech Enthusiasts</td><td>Long</td><td>4.92</td><td>7.88%</td><td>350</td></tr><tr><td>Tech Enthusiasts</td><td>Short</td><td>4.93</td><td>8.31%</td><td>351</td></tr></tbody>
-          </table>
+        <div class="recommendation">
+          <div class="recommendation-index">3</div>
+          <h3>Ajustar duración por segmento y plaza, no por promedio global</h3>
+          <p>En <strong>Foodies</strong> y <strong>Houston</strong>, conviene reforzar campañas cortas porque el ROI fue claramente superior al formato largo. En <strong>Fashionistas</strong> y <strong>Miami</strong>, conviene pausar parte de la presión de campañas cortas y reasignarla a piezas largas, donde el dataset mostró mejor rendimiento. Esto evita uniformar la duración y mejora la productividad del presupuesto por contexto.</p>
         </div>
-        <div class="table-card">
-          <table>
-            <thead>
-              <tr><th>Location</th><th>Duración</th><th>ROI Prom.</th><th>Conv. Prom.</th><th>Filas</th></tr>
-            </thead>
-            <tbody><tr><td>Chicago</td><td>Long</td><td>4.98</td><td>7.78%</td><td>342</td></tr><tr><td>Chicago</td><td>Short</td><td>4.95</td><td>8.07%</td><td>349</td></tr><tr><td>Houston</td><td>Long</td><td>4.95</td><td>8.02%</td><td>357</td></tr><tr><td>Houston</td><td>Short</td><td>5.16</td><td>8.67%</td><td>347</td></tr><tr><td>Los Angeles</td><td>Long</td><td>5.05</td><td>7.85%</td><td>317</td></tr><tr><td>Los Angeles</td><td>Short</td><td>5.09</td><td>8.15%</td><td>339</td></tr><tr><td>Miami</td><td>Long</td><td>5.15</td><td>7.78%</td><td>351</td></tr><tr><td>Miami</td><td>Short</td><td>4.91</td><td>8.21%</td><td>342</td></tr><tr><td>New York</td><td>Long</td><td>4.97</td><td>8.25%</td><td>350</td></tr><tr><td>New York</td><td>Short</td><td>4.99</td><td>8.22%</td><td>338</td></tr></tbody>
-          </table>
-        </div>
-      </div>
-      <div class="two-col" style="margin-top:18px;">
-        <div class="table-card">
-          <table>
-            <thead>
-              <tr><th>Engagement Score</th><th>ROI Prom.</th><th>Filas</th></tr>
-            </thead>
-            <tbody><tr><td>1</td><td>5.01</td><td>349</td></tr><tr><td>2</td><td>5.01</td><td>370</td></tr><tr><td>3</td><td>5.00</td><td>330</td></tr><tr><td>4</td><td>5.03</td><td>369</td></tr><tr><td>5</td><td>5.00</td><td>348</td></tr><tr><td>6</td><td>4.96</td><td>338</td></tr><tr><td>7</td><td>4.92</td><td>321</td></tr><tr><td>8</td><td>5.12</td><td>346</td></tr><tr><td>9</td><td>5.16</td><td>342</td></tr><tr><td>10</td><td>4.98</td><td>319</td></tr></tbody>
-          </table>
-        </div>
-        <div class="table-card">
-          <table>
-            <thead>
-              <tr><th>Canal</th><th>Audiencia</th><th>Tipo de campaña</th><th>ROI Prom.</th><th>Conv. Prom.</th><th>CAC Prom.</th><th>Filas</th></tr>
-            </thead>
-            <tbody><tr><td>Website</td><td>Women 25-34</td><td>Influencer</td><td>4.24</td><td>6.32%</td><td>US$13,662.84</td><td>19</td></tr><tr><td>YouTube</td><td>All Ages</td><td>Influencer</td><td>4.26</td><td>7.81%</td><td>US$13,459.00</td><td>21</td></tr><tr><td>Instagram</td><td>Men 25-34</td><td>Email</td><td>4.33</td><td>8.53%</td><td>US$10,660.76</td><td>17</td></tr><tr><td>Website</td><td>All Ages</td><td>Email</td><td>4.36</td><td>8.00%</td><td>US$9,901.27</td><td>22</td></tr><tr><td>YouTube</td><td>Women 35-44</td><td>Influencer</td><td>4.38</td><td>8.13%</td><td>US$12,124.78</td><td>23</td></tr></tbody>
-        </table>
-      </div>
-    </section>
-
-    <section class="section-card">
-      <h2 class="section-title"><span class="section-number">4</span>PLAN DE ACCIÓN RECOMENDADO</h2>
-      <p class="section-intro">Las siguientes 3 decisiones están construidas exclusivamente con evidencia observable en el dataset recuperado desde Windsor y priorizan reasignaciones concretas para el próximo mes.</p>
-      <div class="recommendations">
-        <article class="recommendation-card">
-      <div class="recommendation-index">1</div>
-      <div>
-        <h3>Reasignar inversión hacia Social Media en Website para Women 25-34</h3>
-        <p><strong>Acción:</strong> Priorizar Website y Facebook para campañas de Social Media dirigidas a audiencias amplias y a Women 25-34. Reducir de forma explícita Website + Women 25-34 + Influencer.</p>
-        <p><strong>Base analítica:</strong> La mejor combinación específica del dataset fue Website + Women 25-34 + Social Media con ROI promedio de 6.09 y conversión de 8.48% en 23 registros. En contraste, Website + Women 25-34 + Influencer cayó a ROI 4.24 y conversión 6.32% en 19 registros, con costo de adquisición prácticamente igual.</p>
-        <p><strong>Reasignación sugerida:</strong> Mover presupuesto desde Website Influencer hacia Website Social Media y, como segunda prioridad, hacia Facebook + All Ages + Social Media, que mostró ROI 5.85 con menor costo promedio de adquisición (US$11,511).</p>
-      </div>
-    </article>
-        <article class="recommendation-card">
-      <div class="recommendation-index">2</div>
-      <div>
-        <h3>Separar la estrategia de duración por mercado y segmento</h3>
-        <p><strong>Acción:</strong> Para Miami y Fashionistas, priorizar campañas largas en Instagram y Website. Para Houston y Foodies, priorizar campañas cortas en Google Ads, Website y Facebook. Reducir campañas largas en Houston y campañas cortas de menor retorno en Miami.</p>
-        <p><strong>Base analítica:</strong> Miami reaccionó mejor a campañas largas: ROI 5.15 frente a 4.91 en campañas cortas. En Houston ocurrió lo contrario: ROI 5.16 en campañas cortas frente a 4.95 en largas. A nivel segmento, Fashionistas rindió mejor en largo plazo (ROI 5.10 vs 5.04), mientras Foodies respondió mejor en corto plazo (ROI 5.21 vs 5.08).</p>
-        <p><strong>Reasignación sugerida:</strong> Reasignar parte del presupuesto de campañas largas en Houston hacia Google Ads corto (ROI 5.54), Website corto (ROI 5.53) y Facebook corto (ROI 5.47). En Miami, sostener inversión larga sobre Instagram (ROI 5.42) y Email largo (ROI 5.41).</p>
-      </div>
-    </article>
-        <article class="recommendation-card">
-      <div class="recommendation-index">3</div>
-      <div>
-        <h3>No usar engagement como criterio principal de asignación presupuestaria</h3>
-        <p><strong>Acción:</strong> Mantener Website como canal base por retorno global y usar Facebook y Google Ads como canales de escala. Reducir piezas o combinaciones que sólo generan interacción pero no retorno económico, especialmente Influencer en YouTube y Website.</p>
-        <p><strong>Base analítica:</strong> La correlación entre Engagement_Score y ROI fue prácticamente nula (r=0.011), por lo que más interacción no implicó mejor negocio. Website lideró el ROI promedio global (5.11) con costo de adquisición por debajo del promedio general, mientras YouTube quedó con el menor ROI promedio entre los canales principales (4.88) y dos de las combinaciones más débiles fueron YouTube + All Ages + Influencer (ROI 4.26) y YouTube + Women 35-44 + Influencer (ROI 4.38).</p>
-        <p><strong>Reasignación sugerida:</strong> Quitar presupuesto incremental de Influencer en YouTube y de las variantes de menor retorno en Website, y redirigirlo a Website, Facebook y Google Ads donde el dataset mostró mejor equilibrio entre ROI, conversión y escala.</p>
-      </div>
-    </article>
       </div>
     </section>
   </div>
